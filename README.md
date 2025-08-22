@@ -1,21 +1,10 @@
-
-[![MasterHead](https://1.bp.blogspot.com/-7A4WynwLsMw/XbBpCXG8fHI/AAAAAAAAMt4/uOa1bpLskYgrwGbllhSu2SDj_Mig8SXJQCLcBGAsYHQ/s1600/2000_600px.gif)](https://ameneb.netlify.app/)
-
 <h1 align="center">Hi 👋, I'm Ebisa Getachew</h1>
-<h3 align="center">A passionate Full-Stack Developer from Ethiopia 🇪🇹</h3>
+
 
 <img align="right" alt="Coding" width="400" src="https://cdn.dribbble.com/users/1162077/screenshots/3848914/programmer.gif">
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=amenlol&label=Profile%20views&color=0e75b6&style=flat" alt="amenlol" /> </p>
 
-## 🚀 About Me
-
-- 🔭 I'm currently working on **Full-Stack Web Applications & AI Integration**
-- 🌱 I'm currently learning **Advanced React, Node.js & Machine Learning**
-- 👨‍💻 All of my projects are available at [https://ameneb.netlify.app/](https://ameneb.netlify.app/)
-- 💬 Ask me about **React, JavaScript, Node.js, PHP, Python, AI/ML**
-- 📫 How to reach me **ebisagetachew18@gmail.com**
-- ⚡ Fun fact **I code, therefore I am! 🚀**
 
 ## 🛠️ Tech Stack
 
@@ -50,25 +39,6 @@
 ![Git](https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white)
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
 
-## 📊 GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=amenlol&show_icons=true&theme=radical" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=amenlol&layout=compact&theme=radical" alt="Top Languages" />
-</p>
-
-## 🏆 GitHub Trophies
-
-<p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=amenlol&theme=radical&no-frame=false&no-bg=true&margin-w=4" alt="GitHub Trophies" />
-</p>
-
-## 📈 Contribution Graph
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=amenlol&theme=radical" alt="Contribution Graph" />
-</p>
-
 ## 🤝 Connect with Me
 
 <p align="left">
@@ -86,18 +56,11 @@
   </a>
 </p>
 
-## 🎯 Current Projects
-
-- 🔥 **Background Motion Video Player** - Interactive video player with modern controls
-- 🌐 **Portfolio Website** - Personal portfolio showcasing my work
-- 📱 **Calculator App** - Modern calculator with advanced features
-- 🎨 **360° Gallery** - Immersive image gallery experience
 
 ## 📫 Get In Touch
 
 - **Portfolio:** [ameneb.netlify.app](https://ameneb.netlify.app/)
 - **Email:** ebisagetachew18@gmail.com
-- **Location:** Ethiopia 🇪🇹
 
 ---
 
