@@ -51,7 +51,7 @@
   <a href="https://fb.com/amen_eb" target="blank">
     <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="amen_eb" height="30" width="40" />
   </a>
-  <a href="https://instagram.com/amen_eb" target="blank">
+  <a href="https://instagram.com/amen_eb_" target="blank">
     <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="amen_eb" height="30" width="40" />
   </a>
 </p>
