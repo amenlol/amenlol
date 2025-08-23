@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - Ebisa</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        #gameCanvas {
+            border: 3px solid #fff;
+            border-radius: 10px;
+            background: #000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .score, .high-score {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+
+        .controls {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            z-index: 100;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .start-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            z-index: 100;
+            max-width: 400px;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .loading-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            z-index: 100;
+            display: none;
+        }
+
+        .loading-dots {
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0%, 20% { content: "🕐"; }
+            40% { content: "🕑"; }
+            60% { content: "🕒"; }
+            80%, 100% { content: "🕐"; }
+        }
+
+        .joke-text {
+            font-size: 0.9em;
+            color: #ffd700;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        .warning-text {
+            font-size: 0.9em;
+            color: #ff6b6b;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .roast-message {
+            font-size: 1.1em;
+            color: #ff6b6b;
+            margin: 15px 0;
+            font-weight: bold;
+            animation: roast 2s infinite;
+        }
+
+        @keyframes roast {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <a href="https://github.com/amenlol" class="back-link">← Back to Profile</a>
+    
+    <div class="game-container">
+        <h1>🐍 Snake Game</h1>
+        
+        <div class="game-info">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="high-score">High Score: <span id="highScore">0</span></div>
+        </div>
+        
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        
+        <div class="controls">
+            <p>Use arrow keys or WASD to move the snake</p>
+            <p>Eat the food to grow and increase your score!</p>
+        </div>
+    </div>
+
+    <div class="start-screen" id="startScreen">
+        <h2>🐍 Snake Game</h2>
+        <div class="joke-text">Brought to you by Ebisa: The Snake Whisperer 🐍</div>
+        <div class="warning-text">Warning: Losing will result in a free roast by Ebisa 🔥</div>
+        <p>Ready to face the challenge?</p>
+        <button class="start-btn" onclick="startGame()">Press SPACE to start… unless you're scared 😏</button>
+    </div>
+
+    <div class="loading-screen" id="loadingScreen">
+        <h3>Loading… patience level: Ebisa's snake <span class="loading-dots">🕐</span></h3>
+        <p>Preparing your doom...</p>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Your Score: <span id="finalScore">0</span></p>
+        <div class="roast-message" id="roastMessage">Ebisa says: "Better luck next time, snake food! 🐍🔥"</div>
+        <button class="restart-btn" onclick="restartGame()">Try Again (if you dare) 😈</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const highScoreElement = document.getElementById('highScore');
+        const gameOverElement = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
+        const startScreenElement = document.getElementById('startScreen');
+        const loadingScreenElement = document.getElementById('loadingScreen');
+        const roastMessageElement = document.getElementById('roastMessage');
+
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+
+        let snake = [];
+        let food = {};
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let highScore = localStorage.getItem('snakeHighScore') || 0;
+        let gameRunning = false;
+        let gameStarted = false;
+
+        highScoreElement.textContent = highScore;
+
+        // Ebisa's roast messages
+        const roastMessages = [
+            "Ebisa says: 'Better luck next time, snake food! 🐍🔥'",
+            "Ebisa says: 'My grandma plays better than you! 👵🎮'",
+            "Ebisa says: 'You lose because snake have more brain than you 😜♂️'",
+            "Ebisa says: 'Even a potato could do better! 🥔'",
+            "Ebisa says: 'Back to snake school for you! 📚🐍'",
+            "Ebisa says: 'Try using your brain next time! 🧠'",
+            "Ebisa says: 'Game over! Even banana beat you 🍌️'",
+            "Ebisa says: 'Even calculator smarter than you 🔢 '"
+        ];
+
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+            
+            // Make sure food doesn't spawn on snake
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                    return;
+                }
+            }
+        }
+
+        function drawGame() {
+            // Clear canvas
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw snake
+            ctx.fillStyle = '#00ff00';
+            for (let i = 0; i < snake.length; i++) {
+                const segment = snake[i];
+                if (i === 0) {
+                    // Draw head with different color
+                    ctx.fillStyle = '#00cc00';
+                } else {
+                    ctx.fillStyle = '#00ff00';
+                }
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            }
+
+            // Draw food
+            ctx.fillStyle = '#ff0000';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+        }
+
+        function moveSnake() {
+            if (!gameRunning) return;
+
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+            // Check wall collision
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                gameOver();
+                return;
+            }
+
+            // Check self collision (skip the head)
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    gameOver();
+                    return;
+                }
+            }
+
+            snake.unshift(head);
+
+            // Check food collision
+            if (head.x === food.x && head.y === food.y) {
+                score += 10;
+                scoreElement.textContent = score;
+                generateFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            finalScoreElement.textContent = score;
+            
+            // Random roast message
+            const randomRoast = roastMessages[Math.floor(Math.random() * roastMessages.length)];
+            roastMessageElement.textContent = randomRoast;
+            
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('snakeHighScore', highScore);
+                highScoreElement.textContent = highScore;
+            }
+            
+            gameOverElement.style.display = 'block';
+        }
+
+        function startGame() {
+            startScreenElement.style.display = 'none';
+            loadingScreenElement.style.display = 'block';
+            
+            // Show loading for 2 seconds
+            setTimeout(() => {
+                loadingScreenElement.style.display = 'none';
+                gameStarted = true;
+                restartGame();
+            }, 2000);
+        }
+
+        function restartGame() {
+            snake = [{x: 10, y: 10}];
+            dx = 1; // Start moving right
+            dy = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            gameRunning = true;
+            gameOverElement.style.display = 'none';
+            generateFood();
+        }
+
+        function gameLoop() {
+            if (gameRunning) {
+                moveSnake();
+                drawGame();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !gameStarted) {
+                e.preventDefault();
+                startGame();
+                return;
+            }
+
+            if (!gameRunning || !gameStarted) return;
+
+            switch(e.key) {
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    if (dy !== 1) { dx = 0; dy = -1; }
+                    break;
+                case 'ArrowDown':
+                case 's':
+                case 'S':
+                    if (dy !== -1) { dx = 0; dy = 1; }
+                    break;
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    if (dx !== 1) { dx = -1; dy = 0; }
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    if (dx !== -1) { dx = 1; dy = 0; }
+                    break;
+            }
+        });
+
+        // Initialize game
+        generateFood();
+        setInterval(gameLoop, 150);
+    </script>
+</body>
+</html>
