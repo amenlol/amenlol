@@ -65,7 +65,7 @@
 ---
 ## 🎮 Play My Snake Game
 <div align="center">
-  <a href="https://amenlol.github.io/amenlol/amenlol/snake-game.html">
+  <a href="https://amenlol.github.io/amenlol/snake-game.html">
     <img src="https://img.shields.io/badge/Play-Snake%20Game-green?style=for-the-badge&logo=game-controller" alt="Play Snake Game" />
   </a>
 </div>
