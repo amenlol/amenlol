@@ -5,22 +5,15 @@ on:
     - cron: "0 */12 * * *" # Runs every 12 hours
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: jamesgeorge007/github-activity-readme@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          COMMIT_MSG: 'Update Snake'
-          MAX_LINES: 2
-
-      - uses: actions/checkout@v4
-        with:
-          ref: output
 
       - name: Generate Snake
         uses: Platane/snk@master
