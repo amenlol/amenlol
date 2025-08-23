@@ -63,11 +63,15 @@
 - **Email:** ebisagetachew18@gmail.com
 
 ---
-
+## 🎮 Play My Snake Game
 <div align="center">
-  <img src="https://github.com/amenlol/amenlol/blob/output/github-contribution-grid-snake-dark.svg" alt="Snake Game" />
+  <a href="https://amenlol.github.io/amenlol/snake-game.html">
+    <img src="https://img.shields.io/badge/Play-Snake%20Game-green?style=for-the-badge&logo=game-controller" alt="Play Snake Game" />
+  </a>
 </div>
+
+---
 
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer"/>
-</p> 
+</p>
