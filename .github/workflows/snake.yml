@@ -2,12 +2,11 @@ name: Generate Snake
 
 on:
   schedule:
-    - cron: "0 */12 * * *" # Runs every 12 hours
+    - cron: "0 */12 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
-  actions: read
 
 jobs:
   build:
@@ -17,29 +16,7 @@ jobs:
 
       - name: Generate Snake
         uses: Platane/snk@master
-        id: snake-gif
         with:
           github_user_name: ${{ github.repository_owner }}
           svg_out_path: dist/github-contribution-grid-snake-dark.svg
           snake_color: 'blue'
-
-      - name: Checkout output branch
-        uses: actions/checkout@v4
-        with:
-          ref: output
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create dist directory
-        run: mkdir -p dist
-
-      - name: Copy snake file
-        run: |
-          cp ${{ steps.snake-gif.outputs.snake_path }} dist/github-contribution-grid-snake-dark.svg
-
-      - name: Commit and push
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add dist/
-          git commit -m "Update snake animation" || exit 0
-          git push
