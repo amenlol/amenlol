@@ -1,0 +1,37 @@
+name: Generate Snake
+
+on:
+  schedule:
+    - cron: "0 */12 * * *" # Runs every 12 hours
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          COMMIT_MSG: 'Update Snake'
+          MAX_LINES: 2
+
+      - uses: actions/checkout@v4
+        with:
+          ref: output
+
+      - name: Generate Snake
+        uses: Platane/snk@master
+        id: snake-gif
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          svg_out_path: dist/github-contribution-grid-snake-dark.svg
+          snake_color: 'blue'
+
+      - name: push to output branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.snake-gif.outputs.branch }}
