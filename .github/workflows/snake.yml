@@ -23,8 +23,23 @@ jobs:
           svg_out_path: dist/github-contribution-grid-snake-dark.svg
           snake_color: 'blue'
 
-      - name: push to output branch
-        uses: ad-m/github-push-action@master
+      - name: Checkout output branch
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.snake-gif.outputs.branch }}
+          ref: output
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create dist directory
+        run: mkdir -p dist
+
+      - name: Copy snake file
+        run: |
+          cp ${{ steps.snake-gif.outputs.snake_path }} dist/github-contribution-grid-snake-dark.svg
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add dist/
+          git commit -m "Update snake animation" || exit 0
+          git push
